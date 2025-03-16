@@ -18,18 +18,42 @@ if (!apiKey) {
 
 export default function HomeRoutesLayout() {
   const { isSignedIn } = useAuth();
-  const {user:clerkUser} = useUser();
+  const { user: clerkUser } = useUser();
 
-  if (!isSignedIn || !clerkUser || !apiKey)  {
+  const user: User = {
+    id: clerkUser?.id!,
+    name: clerkUser?.fullName!,
+    image: clerkUser?.imageUrl!,
+  };
+
+  if (!isSignedIn || !clerkUser || !apiKey) {
     return <Redirect href={"/(auth)/sign-in"} />;
   }
 
-//   const apiKey = "your-api-key";
-  const userId = "user-id";
+  //   const apiKey = "your-api-key";
+  // const userId = clerkUser?.id;
   const token = "authentication-token";
   const callId = "my-call-id";
-  const user: User = { id: userId };
-  const client = new StreamVideoClient({ apiKey, user, token });
+
+  const tokenProvider  = async() => {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/generateUserToken`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body : JSON.stringify({ userId : clerkUser?.id!, 
+          name: clerkUser?.fullName!,
+          image: clerkUser?.imageUrl!,
+          email : clerkUser.primaryEmailAddress?.toString()!,
+        }),
+      });
+
+      const data = await response.json();
+      console.log("Data : ",data);
+      return data.token;
+    }
+  
+  const client = new StreamVideoClient({ apiKey, user, tokenProvider });
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

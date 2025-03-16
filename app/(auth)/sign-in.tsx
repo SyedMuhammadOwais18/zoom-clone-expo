@@ -56,7 +56,7 @@ export default function Page() {
         // If the status isn't complete, check why. User might need to
         // complete further steps.
         console.error(JSON.stringify(signInAttempt, null, 2));
-        Alert.alert("Whoops");
+        Alert.alert("Whoops need further steps");
       }
     } catch (err) {
       // See https://clerk.com/docs/custom-flows/error-handling
@@ -69,15 +69,19 @@ export default function Page() {
   // Google SSO sign in
   const onGoogleSignInPress = useCallback(async () => {
     try {
-      const result : any = await startSSOFlow({
+      const result: any = await startSSOFlow({
         strategy: "oauth_google",
-        redirectUrl: AuthSession.makeRedirectUri(),
+        redirectUrl: AuthSession.makeRedirectUri({ path: "oauthredirect" }),
       });
       if (result.createdSessionId) {
         await result.setActive({ session: result.createdSessionId });
         router.replace("/");
+      } else if (result.authSessionResult.type === "dismiss") {
+        Alert.alert("Redirect URI:", AuthSession.makeRedirectUri());
+        Alert.alert("Sign-in was cancelled", "Please try signing in again.");
       } else {
         // Handle additional steps if necessary (e.g. MFA)
+        Alert.alert("Sign-in failed", "Unknown error occurred. Please try again.");
         console.log("Additional steps required:", result);
       }
     } catch (err) {
