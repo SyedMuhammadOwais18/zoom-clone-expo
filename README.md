@@ -1,50 +1,92 @@
-# Welcome to your Expo app 👋
+# 🎥 Video Calling App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is an Expo React Native application that facilitates video calling capabilities using modern web services and authentication.
 
-## Get started
+## 📦 Features
 
-1. Install dependencies
+- User authentication via Clerk.
+- Video calling powered by Stream Video SDK.
+- Easy and intuitive navigation using Expo Router.
+- Optimized UI/UX for seamless user experience.
 
-   ```bash
-   npm install
-   ```
+## 🚀 Getting Started
 
-2. Start the app
+Follow these steps to run the project locally.
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Clone the Repository
 
 ```bash
-npm run reset-project
+git clone <your-repo-url>
+cd video-calling-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Dependencies
 
-## Learn more
+Install the necessary node modules with:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+or
 
-## Join the community
+```bash
+yarn install
+```
 
-Join our community of developers creating universal apps.
+### 3. Environment Setup
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Create a `.env` file in the root directory and add your environment variables:
+
+```env
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+EXPO_PUBLIC_GET_STREAM_API_KEY=your_stream_api_key
+EXPO_PUBLIC_API_URL=your_backend_api_url
+```
+
+### 4. Running on a Simulator
+
+- **Install Android Studio**: [Download Android Studio](https://developer.android.com/studio)
+- Set up an Android Virtual Device (AVD) via Android Studio.
+- Ensure your simulator is running.
+
+Run the app using:
+
+```bash
+npx expo start -c --dev-client
+```
+
+This command starts the Expo development server and opens your app on the connected emulator.
+
+## 🛠 Building the App
+
+To create a development build for Android simulators, run:
+
+```bash
+npx eas build --platform android --profile development-simulator
+```
+
+## 📚 Project Structure
+
+- `/app`: Main application screens and layouts.
+- `/components`: Reusable React components.
+- `/constants`: Constant values and configurations.
+- `/hooks`: Custom hooks.
+- `/lib`: Utility functions and helper libraries.
+
+## 📖 Tech Stack
+
+- **Expo & Expo Router**
+- **React Native**
+- **TypeScript**
+- **Clerk Authentication**
+- **Stream Video SDK**
+
+## ✨ Contribution
+
+Contributions and suggestions are welcome! Please open an issue or submit a pull request.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
